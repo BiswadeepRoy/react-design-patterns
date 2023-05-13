@@ -1,0 +1,25 @@
+import { useState, useEffect } from "react";
+
+export const ControlledForm = ({ }) => {
+
+    const [nameInputError, setNameInputError] = useState('');
+    const [name, setName] = useState('');
+    const [age, setAge] = useState();
+    const [hairColor, setHairColor] = useState('');
+
+    useEffect(() => {
+        if (name.length <= 2) {
+            setNameInputError('Name should be more than two characters')
+        } else {
+            setNameInputError('')
+        }
+    }, [name])
+
+    return (<form style={{ display: 'flex', flexDirection: 'column' }}>
+        {nameInputError && <p>{nameInputError}</p>}
+        <input name="name" type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
+        <input name="age" type="number" placeholder="Age" value={age} onChange={e => setAge(Number(e.target.value))} />
+        <input name="hairColor" type="text" placeholder="Hair Color" value={hairColor} onChange={e => setHairColor(e.target.value)} />
+        <button onClick={e => e.preventDefault()}>Submit</button>
+    </form>)
+}
